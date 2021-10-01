@@ -1,5 +1,3 @@
-# Ecommerce-Grupo3
-
 #### Comandos para instalar node_modules
 
 -  Abrir una terminal dentro de la carpeta del proyecto y ejecutar el comando npm install.
@@ -8,5 +6,5 @@
 
 #### Usuario de Stranpi
 
-    Correo: cursobuildwuea@gmail.com
+    Correo: misionticproyecto@gmail.com
     Contraseña: Admin12345
