@@ -1,18 +1,93 @@
 <template>
   <BasicLayouts>
-    <h1>Estamos en login</h1>
-    <router-link to="register">
-      Crear una cuenta
-    </router-link>
+    <div class="login">
+      <h2>Iniciar sesión</h2>
+      <form class="ui form" @submit.prevent="login">
+        <div class="field">
+          <input
+            type="text"
+            placeholder="Nombre de usuario"
+            v-model="formData.identifier"
+            :class="{ error: formError.identifier }"
+          />
+        </div>
+        <div class="field">
+          <input
+            type="password"
+            placeholder="Contraseña"
+            v-model="formData.password"
+            :class="{ error: formError.password }"
+          />
+        </div>
+        <button
+          type="submit"
+          class="ui button fluid primary"
+          :class="{ loading }"
+        >
+          Entrar
+        </button>
+      </form>
+      <router-link to="/register"> Crear una cuenta </router-link>
+    </div>
   </BasicLayouts>
 </template>
 
 <script>
+import { ref } from 'vue';
+import * as Yup from 'yup';
 import BasicLayouts from '../layouts/BasicLayouts.vue';
 export default {
-  components: { BasicLayouts },
   name: 'login',
+  components: {
+    BasicLayouts,
+  },
+  setup() {
+    let formData = ref({});
+    let formError = ref({});
+    let loading = ref(false);
+
+    const schemaForm = Yup.object().shape({
+      identifier: Yup.string().required(true),
+      password: Yup.string().required(true),
+    });
+
+    const login = async () => {
+      formError.value = {};
+
+      try {
+        await schemaForm.validate(formData.value, { abortEarly: false });
+        console.log('Ok');
+      } catch (error) {
+        error.inner.forEach((err) => {
+          formError.value[err.path] = err.message;
+        });
+      }
+    };
+
+    return {
+      formData,
+      formError,
+      loading,
+      login,
+    };
+  },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.login {
+  text-align: center;
+  h2 {
+    margin: 50px 0 30px 0;
+  }
+  .ui.form {
+    max-width: 300px !important;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    input.error {
+      border-color: #faa;
+      background-color: #ffeded;
+    }
+  }
+}
+</style>
