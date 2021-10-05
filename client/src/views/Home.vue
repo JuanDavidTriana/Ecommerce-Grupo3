@@ -1,6 +1,15 @@
 <template>
   <BasicLayouts>
-    <h1>Estamos en Home</h1>
+    <h1>Ultimos porductos</h1>
+    <div class="ui grid">
+      <div
+        class="sixten wide mobile eigth wide tablet four wide computer column"
+        v-for="product in products"
+        :key="product.id"
+      >
+        <Product :product="product" />
+      </div>
+    </div>
   </BasicLayouts>
 </template>
 
@@ -8,11 +17,13 @@
 import { ref, onMounted } from 'vue';
 import BasicLayouts from '../layouts/BasicLayouts.vue';
 import { getProducts } from '../api/product';
+import Product from '../components/Product.vue';
 
 export default {
   name: 'Home',
   components: {
     BasicLayouts,
+    Product,
   },
   setup() {
     let products = ref(null);
