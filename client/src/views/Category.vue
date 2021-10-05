@@ -1,13 +1,15 @@
 <template>
   <BasicLayouts>
     <h2>Estamos en la categoria</h2>
+    {{ products }}
   </BasicLayouts>
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import BasicLayouts from '../layouts/BasicLayouts.vue';
-import { getCategoriesApi } from '../api/category';
+import { getProductsApi, getProductsCategory } from '../api/product';
 
 export default {
   name: 'Category',
@@ -15,15 +17,27 @@ export default {
     BasicLayouts,
   },
   watch: {
-    $router(to, from) {
-      console.log(to);
+    $route(to, from) {
+      this.getProducts(to.params.category);
     },
   },
   setup() {
+    let products = ref(null);
+    const { params } = useRoute();
+
     onMounted(async () => {
-      const response = await getCategoriesApi('Gpu');
-      console.log(response);
+      getProducts(params.category);
     });
+
+    const getProducts = async (category) => {
+      const response = await getProductsCategory(category);
+      products.value = response;
+    };
+
+    return {
+      getProducts,
+      products,
+    };
   },
 };
 </script>
