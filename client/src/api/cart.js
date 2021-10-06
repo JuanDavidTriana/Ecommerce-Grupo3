@@ -7,11 +7,10 @@ export function addProductCartApi(idProduct) {
     localStorage.setItem(PRODUCTS, JSON.stringify(products));
   }
   
-  export function getCartApi() {
+export function getCartApi() {
       const products = localStorage.getItem(PRODUCTS);
     
       if (!products) return [];
     
       return JSON.parse(products);
     }
-    
