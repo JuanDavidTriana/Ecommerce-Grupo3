@@ -5,6 +5,11 @@
       <CartHeader :closeCart="closeCart" />
       <CartBody :products="products" :realoadCartFn="realoadCartFn" />
     </div>
+    <CartFooter
+      :products="products"
+      :realoadCartFn="realoadCartFn"
+      v-if="products"
+    />
   </div>
 </template>
 
@@ -13,6 +18,7 @@ import { ref, computed, watchEffect, watch } from 'vue';
 import { useStore } from 'vuex';
 import CartHeader from './CartHeader.vue';
 import CartBody from './CartBody.vue';
+import CartFooter from './CartFooter.vue';
 import { getProductsCartApi } from '../../api/cart';
 
 export default {
@@ -21,6 +27,7 @@ export default {
   components: {
     CartHeader,
     CartBody,
+    CartFooter,
   },
 
   setup() {
