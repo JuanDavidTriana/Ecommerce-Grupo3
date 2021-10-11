@@ -3,7 +3,7 @@
   <div class="cart" :class="{ open: showCart }">
     <div>
       <CartHeader :closeCart="closeCart" />
-      <CartBody :products="products" />
+      <CartBody :products="products" :realoadCartFn="realoadCartFn" />
     </div>
   </div>
 </template>
@@ -44,10 +44,15 @@ export default {
       store.commit('setShowCart', false);
     };
 
+    const realoadCartFn = () => {
+      realoadCart.value = !realoadCart.value;
+    };
+
     return {
       showCart,
       closeCart,
       products,
+      realoadCartFn,
     };
   },
 };
