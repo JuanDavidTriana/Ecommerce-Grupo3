@@ -14,7 +14,7 @@
         <tr v-for="product in products" :key="product.id">
           <td>{{ product.name }}</td>
           <td>{{ product.quantity }}</td>
-          <td>{{ product.price }} €</td>
+          <td>{{ product.price }} $</td>
           <td style="text-align: center">
             <i class="close icon" @click="deleteAllProductCart(product.id)"></i>
           </td>
@@ -22,7 +22,7 @@
         <tr>
           <td></td>
           <td>Total:</td>
-          <td colspan="2">{{ getTotal() }}€</td>
+          <td colspan="2">{{ getTotal() }} $</td>
         </tr>
       </tbody>
     </table>
